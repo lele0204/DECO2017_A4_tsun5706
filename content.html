@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+    <title>content</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="d-flex d-ai-c d-jc-sb">
+            <a href="task.html" class="logo">STUDBUD</a>
+            <nav>
+                <a href="task.html">TASK</a>
+                <a href="timer.html">TIMER</a>
+                <a class="active" href="content.html">CONTENT</a>
+                <a href="music.html">MUSIC</a>
+            </nav>
+        </header>
+		<div class="conetnt">
+			<div class="icon d-flex d-ai-c d-jc-c">
+				<img src="images/summarize.svg" alt="" srcset="">
+			</div>
+			<div class="conetnt-body">
+				<p>ACRONYM MAKER</p>
+				<form onsubmit="return false;">
+					<div class="form-div">
+						<label for="keyword">KEYWORD(S)</label>
+						<input type="text" name="keyword" id="keyword" placeholder="beats per minute"/>
+					</div>
+					<div class="form-div d-flex d-ai-fe d-jc-sb">
+						<div class="">
+							<label for="idealName">IDEAL NAME</label>
+							<input type="text" name="idealName" id="idealName" placeholder="BPM"/>
+						</div>	
+						<input type="submit" class="generate" value="GENERATE">
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+
+    <script src="js/content.js"></script>
+</body>
+
+</html>
