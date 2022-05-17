@@ -2,30 +2,201 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/media.css">
-    <title>task</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/media.css">
+	<title>task</title>
 </head>
 
 <body>
-    <div class="container">
-        <header class="d-flex d-ai-c d-jc-sb">
-            <a href="task.html" class="logo">STUDBUD</a>
-            <nav>
-                <a class="active" href="task.html">TASK</a>
-                <a href="timer.html">TIMER</a>
-                <a href="content.html">CONTENT</a>
-                <a href="music.html">MUSIC</a>
-            </nav>
-        </header>
-    </div>
+	<div class="container">
+		<header class="d-flex d-ai-c d-jc-sb">
+			<a href="task.html" class="logo">STUDBUD</a>
+			<nav>
+				<a class="active" href="task.html">TASK</a>
+				<a href="javascript:;" class="timer">TIMER</a>
+				<a href="content.html">CONTENT</a>
+				<a href="javascript:;">MUSIC</a>
+			</nav>
+		</header>
 
-    <script src="js/script.js"></script>
+		<div class="conetnt task d-flex d-ai-fs">
+			<div id="task" class="d-flex d-ai-fs"></div>
+		</div>
+
+		<div class="right">
+			<div class="icon-del d-flex d-ai-c d-jc-c" id="alarmClock">
+				<img src="images/alarm.svg" alt="" srcset="">
+			</div>
+			<div class="icon-del d-flex d-ai-c d-jc-c" id="music">
+				<img src="images/queue_music.svg" alt="" srcset="">
+			</div>
+			<div class="icon-del d-flex d-ai-c d-jc-c" id="todoList">
+				<img src="images/post_add.svg" alt="" srcset="">
+			</div>
+		</div>
+	</div>
+
+	<div class="modal">
+		<div class="modal-mask"></div>
+		<div class="modal-content">
+			<p class="modal-title"></p>
+			<div class="modal-form d-flex d-jc-sb">
+				<div class="modal-left">
+					<div class="modal-group">
+						<label for="subject">SUBJECT</label>
+						<input type="text" name="subject" id="subject" />
+					</div>
+					<div class="modal-group">
+						<label for="title">TITLE/NAME</label>
+						<input type="text" name="title" id="title" />
+					</div>
+					<div class="modal-group">
+						<label for="title">DESCRIPTION</label>
+						<textarea name="description" id="description" placeholder="(optional)"></textarea>
+					</div>
+				</div>
+				<div class="modal-right">
+					<div class="modal-row d-flex d-ai-c d-jc-sb">
+						<div class="modal-group">
+							<label for="status">STATUS</label>
+							<input type="text" name="status" id="status" readonly>
+						</div>
+						<div class="modal-group">
+							<label for="date">DUE DATE</label>
+							<input type="date" name="date" id="date" value="" />
+						</div>
+					</div>
+					<div class="modal-group">
+						<div class="modal-row d-flex d-ai-fe d-jc-sb">
+							<div class="modal-group">
+								<label for="hour">ESTIMATED TIME</label>
+								<input type="number" name="hour" id="hour" placeholder="HOUR(S)" />
+							</div>
+							<div class="modal-group">
+								<input type="number" name="minute" id="minute" placeholder="MINUTE(S)" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-group">
+						<label for="pating">PRIORITY RATING</label>
+						<div class="d-flex d-jc-sb priority-pating">
+							<span>LOW</span>
+							<span>MED</span>
+							<span>HIGH</span>
+						</div>
+					</div>
+					<div class="modal-group d-flex d-ai-c d-jc-sb">
+						<button class="cancel">CANCEL</button>
+						<button class="del">DELETE</button>
+						<button class="save">SAVE</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="modal-timer">
+		<div class="modal-mask"></div>
+		<div class="timer-content">
+			<div class="timer-icon">
+				<img src="images/off.svg" alt="">
+				<img src="images/off.svg" alt="">
+				<img src="images/off.svg" alt="">
+			</div>
+			<p class="timer-title d-flex d-ai-c d-jc-c">
+				<span class="change-title">STOPWATCH</span>
+				<img src="images/change_circle.svg" alt="" class="change-circle">
+			</p>
+			<div class="stopwatch">
+				<div class="timer-form d-flex d-ai-c d-jc-c">
+					<input type="text" id="timer-h" placeholder="00">:
+					<input type="text" id="timer-m" placeholder="00">.
+					<input type="text" id="timer-s" placeholder="00">
+				</div>
+				<div class="d-flex d-ai-c d-jc-c d-fd-c">
+					<button class="start">START</button>
+					<button class="reset">RESET</button>
+				</div>
+			</div>
+			<div class="pomodoro">
+				<div class="pomodoro-title d-flex d-ai-c d-jc-sb">
+					<span>FOCUS</span>
+					<span>BREAK</span>
+				</div>
+				<div class="pomodoro-timer d-flex d-ai-c d-jc-sb">
+					<input type="text" placeholder=" :00" />
+					<input type="text" placeholder=" :00" />
+					<span class="ride">x</span>
+				</div>
+				<div class="pomodoro-s d-flex d-ai-c d-jc-sb">
+					<div class="pomodoro-s-left">
+						<span class="session">SESSION</span>
+						<div class="pomodoro-s-change d-flex d-ai-c">
+							<img src="images/off.svg" alt="">
+							<span class="num">1</span>
+							<img src="images/off.svg" alt="">
+						</div>
+					</div>
+					<button class="pomodoroStart">START</button>
+				</div>
+			</div>
+			<div class="progress">
+				<div class="circle">
+					<div class="ball d-flex d-ai-c d-jc-c">
+						<span>0%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<script src="js/task.js"></script>
+
+	<!-- <script>
+		var dom = document.querySelector(".ball");
+		var angle = 90;
+		var nextAround = function () {
+			angle = (angle + 1) % 360;
+			console.log(angle)
+			dom.style.left = (120 - Math.cos(angle * 0.017453293) * 135) + 'px';
+			dom.style.top = (107 - Math.sin(angle * 0.017453293) * 135) + 'px';
+			if (isContinue()) {
+				setTimeout(nextAround, 1000);
+			}
+		}
+		var isContinue = function () {
+			//此处可以加判断，true继续运行，false停止
+			//例如你希望 环绕到 270 度之后停止运行
+			// if (angle > 270) {
+			// 	return false;
+			// }
+
+			return true;
+		}
+		nextAround();
+		// let $ball = document.querySelector(".ball");
+		// let angle = 0;
+		// let getPosition = ((centerX, centerY, radius) => {
+		// 	return (angle) => {
+		// 		return {
+		// 			x: +centerX + Math.cos(angle) * radius,
+		// 			y: +centerY + Math.sin(angle) * radius,
+		// 		};
+		// 	};
+		// })(0, 130, 130);
+		// run();
+		// function run() {
+		// 	angle += 1;   // 角度加1
+		// 	let position = getPosition((angle * Math.PI) / 180);
+		// 	$ball.style.transform = `translate(${position.x}px, ${position.y}px)`;
+		// 	window.requestAnimationFrame(run);
+		// }
+	</script> -->
 </body>
 
 </html>

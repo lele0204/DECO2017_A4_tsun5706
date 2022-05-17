@@ -32,12 +32,12 @@
 				<form onsubmit="return false;">
 					<div class="form-div">
 						<label for="keyword">KEYWORD(S)</label>
-						<input type="text" name="keyword" id="keyword" placeholder="beats per minute"/>
+						<input type="text" name="keyword" id="keyword" placeholder="beats per minute" oninput="keywordChange()"/>
 					</div>
 					<div class="form-div d-flex d-ai-fe d-jc-sb">
 						<div class="">
 							<label for="idealName">IDEAL NAME</label>
-							<input type="text" name="idealName" id="idealName" placeholder="BPM"/>
+							<input type="text" name="idealName" id="idealName" placeholder="BPM" readonly />
 						</div>	
 						<input type="submit" class="generate" value="GENERATE">
 					</div>

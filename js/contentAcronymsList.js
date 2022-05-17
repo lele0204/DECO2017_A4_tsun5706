@@ -65,6 +65,13 @@ function createList(params) {
 
 			let conetntList = document.createElement("div");
 			conetntList.classList.add("conetnt-list");
+			// conetntList.setAttribute("draggable", true);
+			// conetntList.setAttribute("ondragstart", "handleDragStart(this, event)");
+			// conetntList.setAttribute("ondragenter", "handleDragEnter(this, event)");
+			// conetntList.setAttribute("ondragover", "handleDragOver(this, event)");
+			// conetntList.setAttribute("ondragleave", "handleDragLeave(this, event)");
+			// conetntList.setAttribute("ondrop", "handleDrop(this, event)");
+			// conetntList.setAttribute("ondragend", "handleDragEnd(this, event)");
 			let _ul = document.createElement("ul");
 			for (let i = 0; i < arr[key].data.length; i++) {
 				let _li = document.createElement("li");
@@ -156,6 +163,49 @@ function createList(params) {
 		list.appendChild(conetntList);
 	}
 }
+// var dragSrcEl = null;
+// function handleDragStart(that, e) {
+// 	that.style.opacity = '0.8';
+// 	dragSrcEl = that;
+// 	e.dataTransfer.effectAllowed = 'move';
+// 	e.dataTransfer.setData('text/html', that.innerHTML);
+// }
+	
+// function handleDragOver(that, e) {
+// 	if (e.preventDefault) {
+// 		e.preventDefault();
+// 	}
+// 	e.dataTransfer.dropEffect = 'move';
+// 	return false;
+// }
+
+// function handleDragEnter(that, e) {
+// 	// that.classList.add('task-hover');
+// }
+		
+// function handleDragLeave(that, e) {
+// 	// that.classList.remove('task-hover');
+// }
+	
+// function handleDrop(that, e) {
+// 	if (e.stopPropagation) {
+// 		e.stopPropagation(); // stops the browser from redirecting.
+// 	}
+// 	if (dragSrcEl != that) {
+// 		dragSrcEl.innerHTML = that.innerHTML;
+// 		that.innerHTML = e.dataTransfer.getData('text/html');
+// 	}
+// 	return false;
+// }
+	
+// function handleDragEnd(that, e) {
+// 	that.style.opacity = '1';
+// 	console.log(e)
+// 	// let conetntList = document.querySelectorAll(".conetnt-list");
+// 	// conetntList.forEach((item) => {
+// 	// 	item.classList.remove('task-hover');
+// 	// });
+// }
 
 function sortByChooseHandle() {
 	let sortBySelect = document.querySelector(".sort-by-select");
