@@ -394,7 +394,8 @@ nav a:hover {
 	color: #000000;
 }
 .modal,
-.modal-timer{
+.modal-timer,
+.modal-music{
 	position: fixed;
 	display: none;
 	top: 0;
@@ -554,7 +555,8 @@ nav a:hover {
 	margin-top: 12px;
 	cursor: pointer;
 }
-.timer-content {
+.timer-content,
+.music-content {
 	width: 633px;
 	height: 633px;
 	background: #FFFFFF;
@@ -571,6 +573,7 @@ nav a:hover {
 .timer-icon img{
 	width: 40px;
 	height: 40px;
+	cursor: pointer;
 }
 .timer-form,
 .timer-form input {
@@ -707,4 +710,79 @@ nav a:hover {
 	font-size: 16px;
 	line-height: 9px;
 	color: #FFFFFF;
+}
+#player {
+	margin-top: 20px;
+}
+#pcontrol button {
+	margin: 0 10px;
+	border: 0;
+	outline: none;
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#pcontrol button:nth-of-type(1) {
+	background: url("../images/shangyige.png") center center no-repeat;
+}
+#pcontrol button:nth-of-type(2).play1 {
+	background: url("../images/play.png") center center no-repeat;
+}
+#pcontrol button:nth-of-type(2).play2 {
+	background: url("../images/zanting.png") center center no-repeat;
+}
+#pcontrol button:nth-of-type(3) {
+	background: url("../images/xiayige.png") center center no-repeat;
+}
+.playerImg {
+	text-align: center;
+}
+.playerImg img {
+	width: 280px;
+	height: 280px;
+	border-radius: 33px;
+}
+.con {
+	margin: 20px auto 0;
+    width: 498px;
+}
+.con .contr p:nth-of-type(1) {
+	font-family: 'Saira';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 38px;
+	color: #88BEE2;
+}
+.con .contr p:nth-of-type(2) {
+	font-family: 'Livvic';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 18px;
+	color: #A0ACCB;
+}
+#progrees {
+    width: 498px;
+    height: 3px;
+    background: #A0ACCB;
+    margin: 30px auto 0;
+	position:relative;
+}
+#curProgrees {
+    width: 0px;
+    height: 100%;
+    background: #88BEE2;
+}
+#playTime{
+    margin: 16px auto 0;
+    width: 498px;
+	font-family: 'Livvic';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 18px;
+	color: #88BEE2;
 }

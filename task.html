@@ -20,7 +20,7 @@
 				<a class="active" href="task.html">TASK</a>
 				<a href="javascript:;" class="timer">TIMER</a>
 				<a href="content.html">CONTENT</a>
-				<a href="javascript:;">MUSIC</a>
+				<a href="javascript:;" class="music-btn">MUSIC</a>
 			</nav>
 		</header>
 
@@ -100,7 +100,7 @@
 		</div>
 	</div>
 
-	<!-- <div class="modal-timer">
+	<div class="modal-timer">
 		<div class="modal-mask"></div>
 		<div class="timer-content">
 			<div class="timer-icon">
@@ -153,9 +153,48 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
+
+	<div class="modal-music">
+		<div class="modal-mask"></div>
+		<div class="music-content">
+			<div class="timer-icon">
+				<img src="images/off.svg" class="music-close" alt="">
+				<img src="images/jiandiao.png" class="music-hide" alt="">
+			</div>
+			<div id="player">
+				<div id="playerControl">
+					<div class="playerImg">
+						<img src="images/alarm.svg" class="musicImage">
+						<audio id="audio">
+							<source src="music/1.mp3">
+						</audio>
+					</div>
+					<div class="con d-flex d-ai-c d-jc-sb">
+						<div class="contr">
+							<p class="names"></p>
+							<p class="authors"></p>
+						</div>
+						<div id="pcontrol" class="d-flex d-ai-c d-jc-c">
+							<button class="prev" title="prev"></button>
+							<button id="play" class="play1" title="play"></button>
+							<button class="next" title="next"></button>
+						</div>
+					</div>
+				</div>
+				<div id="progrees">
+					<div id="curProgrees"></div>
+				</div>
+				<div id="playTime" class="d-flex d-jc-sb d-ai-c">
+					<span id="presentTime">00 : 00</span>
+					<span id="totalTime">00 : 00</span>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script src="js/task.js"></script>
+	<script src="js/music.js"></script>
 
 	<!-- <script>
 		var dom = document.querySelector(".ball");

@@ -38,6 +38,7 @@ for (let i = 0; i < priorityPatingDom.length; i++) {
 function createTask() {
 	task.innerHTML = "";
 	let taskList = JSON.parse(localStorage.getItem("taskList"));
+	console.log(taskList)
 	if (taskList && taskList.length > 0) {
 		for (let i = 0; i < taskList.length; i++) {
 			let { taskTitle, data } = taskList[i];
@@ -337,9 +338,9 @@ let timer = document.querySelector(".timer"),
 	stopwatch = document.querySelector(".stopwatch"),
 	timerReg = /([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])/;
 
-changeCircle.addEventListener("click", ()=> {
+changeCircle.addEventListener("click", () => {
 	console.log()
-	if(changeTitle.classList == "change-title") {
+	if (changeTitle.classList == "change-title") {
 		changeTitle.classList.add("active");
 		changeTitle.innerHTML = "POMODORO";
 		stopwatch.style.display = "none";
@@ -357,9 +358,9 @@ start.addEventListener("click", () => {
 		timerMVal = timerM.value,
 		timerSVal = timerS.value;
 	let str = timerReg.test(`${timerHVal}:${timerMVal}:${timerSVal}`);
-	if(str) {
+	if (str) {
 		let val = (Number(timerHVal) * 60 * 60) + (Number(timerMVal) * 60) + Number(timerSVal);
-	console.log(val)
+		console.log(val)
 	}
 })
 
@@ -368,4 +369,5 @@ reset.addEventListener("click", () => {
 	timerM.value = "";
 	timerS.value = "";
 })
+
 
