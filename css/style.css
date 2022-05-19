@@ -698,6 +698,63 @@ nav a:hover {
 	flex: 1;
 }
 .progress {
+	position: relative;
+    width: 300px;
+    margin: 0 auto;
+	text-align: center;
+	display: none;
+}
+.progress button {
+	margin-top: 10px;
+}
+.controlls {
+    position: absolute;
+    left: 118px;
+    top: 105px;
+    text-align: center;
+}
+.display-remain-time {
+	font-family: 'Saira';
+	font-weight: 700;
+	font-size: 36px;
+	color: #88BEE2;
+}
+
+.display-remain-percentage,
+.display-remain-break {
+	font-family: 'Livvic';
+	font-weight: 600;
+	font-size: 14px;
+	color: #AAAAAA;
+}
+.display-remain-break {
+	display: none;
+}
+.e-c-base {
+	fill: none;
+	stroke: #B6B6B6;
+	stroke-width: 10px
+}
+
+.e-c-progress {
+	fill: none;
+	stroke: #F99E9E;
+	stroke-width: 10px;
+	transition: stroke-dashoffset 0.7s;
+}
+
+.e-c-pointer {
+	fill: #A7DAA9;
+	stroke: #A7DAA9;
+	stroke-width: 2px;
+}
+
+#e-pointer {
+	transition: transform 0.7s;
+}
+
+
+/* .progress {
 	margin: 20px 0;
 }
 .circle {
@@ -725,7 +782,7 @@ nav a:hover {
 	font-size: 16px;
 	line-height: 9px;
 	color: #FFFFFF;
-}
+} */
 #player {
 	margin-top: 20px;
 }

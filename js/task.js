@@ -327,47 +327,19 @@ save.addEventListener("click", () => {
 })
 
 // Timer
-let timer = document.querySelector(".timer"),
-	start = document.querySelector(".start"),
-	reset = document.querySelector(".reset"),
-	timerH = document.getElementById("timer-h"),
-	timerM = document.getElementById("timer-m"),
-	timerS = document.getElementById("timer-s"),
-	changeTitle = document.querySelector(".change-title"),
-	changeCircle = document.querySelector(".change-circle"),
-	stopwatch = document.querySelector(".stopwatch"),
-	timerReg = /([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])/;
+// let timer = document.querySelector(".timer"),
+// 	start = document.querySelector(".start"),
+// 	reset = document.querySelector(".reset"),
+// 	timerH = document.getElementById("timer-h"),
+// 	timerM = document.getElementById("timer-m"),
+// 	timerS = document.getElementById("timer-s"),
+// 	changeTitle = document.querySelector(".change-title"),
+// 	changeCircle = document.querySelector(".change-circle"),
+// 	stopwatch = document.querySelector(".stopwatch"),
+// 	timerReg = /([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])/;
 
-changeCircle.addEventListener("click", () => {
-	console.log()
-	if (changeTitle.classList == "change-title") {
-		changeTitle.classList.add("active");
-		changeTitle.innerHTML = "POMODORO";
-		stopwatch.style.display = "none";
-	} else {
-		changeTitle.classList.remove("active");
-		changeTitle.innerHTML = "STOPWATCH";
-	}
-})
 
-timer.addEventListener("click", () => {
-})
 
-start.addEventListener("click", () => {
-	let timerHVal = timerH.value,
-		timerMVal = timerM.value,
-		timerSVal = timerS.value;
-	let str = timerReg.test(`${timerHVal}:${timerMVal}:${timerSVal}`);
-	if (str) {
-		let val = (Number(timerHVal) * 60 * 60) + (Number(timerMVal) * 60) + Number(timerSVal);
-		console.log(val)
-	}
-})
 
-reset.addEventListener("click", () => {
-	timerH.value = "";
-	timerM.value = "";
-	timerS.value = "";
-})
 
 
