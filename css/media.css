@@ -23,6 +23,13 @@
 	.conetnt-body .form-div:nth-of-type(2) input {
 		width: 84%;
 	}
+	.conetnt-list ul li > b,
+	.right{
+		display: block;
+	}
+	.icon-del {
+		display: none;
+	}
 }
 @media (max-width:1024px){	
 }

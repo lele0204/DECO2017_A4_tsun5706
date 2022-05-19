@@ -11,13 +11,13 @@ close.addEventListener("click", () => {
 });
 
 // clear contentAcronymsList data
-iconDel.addEventListener("click", () => {
-	let acronymsList = JSON.parse(localStorage.getItem("acronymsList"));
-	if (acronymsList.length > 0) {
-		localStorage.removeItem("acronymsList");
-		createList("alphabetical order");
-	}
-})
+// iconDel.addEventListener("click", () => {
+// 	let acronymsList = JSON.parse(localStorage.getItem("acronymsList"));
+// 	if (acronymsList.length > 0) {
+// 		localStorage.removeItem("acronymsList");
+// 		createList("alphabetical order");
+// 	}
+// })
 
 function createList(params) {
 	let list = document.getElementById("list"),
@@ -43,7 +43,7 @@ function createList(params) {
 			sortbyLabel.innerHTML = "SORT BY: ";
 			let sortByChoose = document.createElement("span");
 			sortByChoose.classList.add("sort-by-choose");
-			sortByChoose.innerHTML = "alphabetical order";
+			sortByChoose.innerHTML = params;
 			sortByChoose.setAttribute("onclick", "sortByChooseHandle()");
 			let sortBySelect = document.createElement("div");
 			sortBySelect.classList.add("sort-by-select");
@@ -65,16 +65,19 @@ function createList(params) {
 
 			let conetntList = document.createElement("div");
 			conetntList.classList.add("conetnt-list");
-			// conetntList.setAttribute("draggable", true);
-			// conetntList.setAttribute("ondragstart", "handleDragStart(this, event)");
-			// conetntList.setAttribute("ondragenter", "handleDragEnter(this, event)");
-			// conetntList.setAttribute("ondragover", "handleDragOver(this, event)");
-			// conetntList.setAttribute("ondragleave", "handleDragLeave(this, event)");
-			// conetntList.setAttribute("ondrop", "handleDrop(this, event)");
-			// conetntList.setAttribute("ondragend", "handleDragEnd(this, event)");
+
 			let _ul = document.createElement("ul");
 			for (let i = 0; i < arr[key].data.length; i++) {
 				let _li = document.createElement("li");
+				_li.setAttribute("data-id", arr[key].data[i].id);
+				_li.setAttribute("draggable", true);
+				_li.setAttribute("ondragstart", "handleDragStart(this, event)");
+				_li.setAttribute("ondragover", "handleDragOver(this, event)");
+				_li.setAttribute("ondragend", "handleDragEnd(this, event)");
+				let _b = document.createElement("b");
+				_b.innerHTML = "x";
+				_b.setAttribute("onclick", "rowDel("+ arr[key].data[i].id +")");
+				_li.appendChild(_b);
 				let _div = document.createElement("div");
 				_div.classList.add("d-flex");
 				_div.classList.add("d-ai-fs");
@@ -84,12 +87,12 @@ function createList(params) {
 				let _span4 = document.createElement("span");
 				let keywordArr = arr[key].data[i].keyword.split(" "), idealNameArr = arr[key].data[i].idealName.split("");
 				for (let j = 0; j < keywordArr.length; j++) {
-					if(keywordArr[j].substring(0, 1) == idealNameArr[j]) {
+					if (keywordArr[j].substring(0, 1) == idealNameArr[j]) {
 						let _b = document.createElement("b");
 						_b.innerHTML = keywordArr[j].substring(0, 1);
 						_span4.appendChild(_b);
 					}
-					_span4.append(keywordArr[j].substring(1) + " ") ;
+					_span4.append(keywordArr[j].substring(1) + " ");
 				}
 				_div.appendChild(_span3);
 				_div.appendChild(_span4);
@@ -114,7 +117,7 @@ function createList(params) {
 		sortbyLabel.innerHTML = "SORT BY: ";
 		let sortByChoose = document.createElement("span");
 		sortByChoose.classList.add("sort-by-choose");
-		sortByChoose.innerHTML = "alphabetical order";
+		sortByChoose.innerHTML = params;
 		sortByChoose.setAttribute("onclick", "sortByChooseHandle()");
 		let sortBySelect = document.createElement("div");
 		sortBySelect.classList.add("sort-by-select");
@@ -137,6 +140,15 @@ function createList(params) {
 		let _ul = document.createElement("ul");
 		for (let i = 0; i < acronymsList.length; i++) {
 			let _li = document.createElement("li");
+			_li.setAttribute("data-id", acronymsList[i].id);
+			_li.setAttribute("draggable", true);
+			_li.setAttribute("ondragstart", "handleDragStart(this, event)");
+			_li.setAttribute("ondragover", "handleDragOver(this, event)");
+			_li.setAttribute("ondragend", "handleDragEnd(this, event)");
+			let _b = document.createElement("b");
+			_b.innerHTML = "x";
+			_b.setAttribute("onclick", "rowDel("+ acronymsList[i].id +")");
+			_li.appendChild(_b);
 			let _div = document.createElement("div");
 			_div.classList.add("d-flex");
 			_div.classList.add("d-ai-fs");
@@ -146,12 +158,12 @@ function createList(params) {
 			let _span4 = document.createElement("span");
 			let keywordArr = acronymsList[i].keyword.split(" "), idealNameArr = acronymsList[i].idealName.split("");
 			for (let j = 0; j < keywordArr.length; j++) {
-				if(keywordArr[j].substring(0, 1) == idealNameArr[j]) {
+				if (keywordArr[j].substring(0, 1) == idealNameArr[j]) {
 					let _b = document.createElement("b");
 					_b.innerHTML = keywordArr[j].substring(0, 1);
 					_span4.appendChild(_b);
 				}
-				_span4.append(keywordArr[j].substring(1) + " ") ;
+				_span4.append(keywordArr[j].substring(1) + " ");
 			}
 			_div.appendChild(_span3);
 			_div.appendChild(_span4);
@@ -163,49 +175,45 @@ function createList(params) {
 		list.appendChild(conetntList);
 	}
 }
-// var dragSrcEl = null;
-// function handleDragStart(that, e) {
-// 	that.style.opacity = '0.8';
-// 	dragSrcEl = that;
-// 	e.dataTransfer.effectAllowed = 'move';
-// 	e.dataTransfer.setData('text/html', that.innerHTML);
-// }
-	
-// function handleDragOver(that, e) {
-// 	if (e.preventDefault) {
-// 		e.preventDefault();
-// 	}
-// 	e.dataTransfer.dropEffect = 'move';
-// 	return false;
-// }
 
-// function handleDragEnter(that, e) {
-// 	// that.classList.add('task-hover');
-// }
-		
-// function handleDragLeave(that, e) {
-// 	// that.classList.remove('task-hover');
-// }
-	
-// function handleDrop(that, e) {
-// 	if (e.stopPropagation) {
-// 		e.stopPropagation(); // stops the browser from redirecting.
-// 	}
-// 	if (dragSrcEl != that) {
-// 		dragSrcEl.innerHTML = that.innerHTML;
-// 		that.innerHTML = e.dataTransfer.getData('text/html');
-// 	}
-// 	return false;
-// }
-	
-// function handleDragEnd(that, e) {
-// 	that.style.opacity = '1';
-// 	console.log(e)
-// 	// let conetntList = document.querySelectorAll(".conetnt-list");
-// 	// conetntList.forEach((item) => {
-// 	// 	item.classList.remove('task-hover');
-// 	// });
-// }
+function handleDragStart(that, e) {
+	that.style.opacity = '0.8';
+	e.dataTransfer.effectAllowed = 'move';
+	e.dataTransfer.setData('text/html', that.innerHTML);
+	let id = that.getAttribute("data-id");
+	event.dataTransfer.setData('id', id);
+}
+
+function handleDragOver(that, e) {
+	if (e.preventDefault) {
+		e.preventDefault();
+	}
+	e.dataTransfer.dropEffect = 'move';
+	return false;
+}
+
+function handleDragEnd(that, e) {
+	that.style.opacity = '1';
+}
+iconDel.ondragover = function () {
+	event.preventDefault();
+}
+iconDel.ondrop = function (event) {
+	let id = event.dataTransfer.getData('id');
+	if(id) {
+		rowDel(id)
+	}
+	event.stopPropagation();
+}
+
+function rowDel(id) {
+	let acronymsList = JSON.parse(localStorage.getItem("acronymsList"));
+	let index = acronymsList.findIndex(v=> v.id == id),
+		sortByChoose = document.querySelector(".sort-by-choose");
+	acronymsList.splice(index, 1);
+	localStorage.setItem("acronymsList", JSON.stringify(acronymsList))
+	createList(sortByChoose.innerHTML);
+}
 
 function sortByChooseHandle() {
 	let sortBySelect = document.querySelector(".sort-by-select");

@@ -236,6 +236,20 @@ nav a:hover {
 .conetnt-list ul li {
 	position: relative;
 }
+.conetnt-list ul li > b {
+	position: absolute;
+	top: 8px;
+	right: -12px;
+	background-color: #B19770;
+	color: #fff;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	border-radius: 50%;
+	text-align: center;
+	cursor: pointer;
+	display: none;
+}
 .conetnt-list ul li:before{
 	content: "";
 	position: absolute;
@@ -549,6 +563,7 @@ nav a:hover {
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
+	display: none;
 }
 .right .icon-del {
 	position: static;

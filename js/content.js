@@ -33,7 +33,7 @@ generate.addEventListener("click", ()=> {
 		return;
 	}
 	if(keywordVal && idealNameVal) {
-		let obj = {"keyword": keywordVal, "idealName": idealNameVal, "time": Date.parse(new Date())}
+		let obj = {"id": (acronymsList && JSON.parse(acronymsList).length) > 0 ? JSON.parse(acronymsList).length : 0,"keyword": keywordVal, "idealName": idealNameVal, "time": Date.parse(new Date())}
 		if(acronymsList) {
 			let acronymsListArr = JSON.parse(acronymsList);
 			acronymsListArr.push(obj);
