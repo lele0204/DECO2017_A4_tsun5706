@@ -30,8 +30,30 @@
 	.icon-del {
 		display: none;
 	}
+	.right .icon-del {
+		display: flex;
+	}
 }
 @media (max-width:1024px){	
+	.modal-form {
+		display: block;
+		padding: 3%;
+		overflow: scroll;
+		height: calc(100vh - 37%);
+	}
+	.modal-content {
+		height: 88%;
+		overflow: hidden;
+	}
+	.modal-form .modal-left, .modal-form .modal-right {
+		width: 100%;
+	}
+	.modal-form .modal-right {
+		margin-top: 2%;
+	}
+	.modal-form input, .modal-form select {
+		margin-bottom: 2%;
+	}
 }
 @media (max-width:968px){	
 }
@@ -103,8 +125,46 @@
 		width: 72%;
 		margin-left: 2%;
 	}
+	.modal-content {
+		width: 90%;
+	}
+	.modal-title, .timer-title {
+		font-size: 48px;
+	}
+	.modal-form label {
+		padding: 10px;
+		margin-bottom: 4%;
+	}
+	.modal-form label,
+	.modal-form input, .modal-form textarea,
+	.modal-form span{
+		font-size: 18px;
+	}
+	.modal-form button {
+		font-size: 30px;
+		line-height: 52px;
+		margin-top: 20px;
+	}
+	.modal-form input, .modal-form textarea {
+		line-height: 36px;
+	}
+	.task-item {
+		padding: 1%;
+	}
 }
-@media (max-width:640px){	
+@media (max-width:640px){
+	.modal-title, .timer-title {
+		font-size: 40px;
+	}
+	.modal-form label,
+	.modal-form input, .modal-form textarea,
+	.modal-form span{
+		font-size: 16px;
+	}
+	.modal-form button {
+		font-size: 26px;
+		line-height: 52px;
+	}	
 }
 @media (max-width:475px){	
 	.logo {

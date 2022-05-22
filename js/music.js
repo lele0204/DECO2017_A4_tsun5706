@@ -48,6 +48,12 @@ musicBtn.addEventListener("click", () => {
     modalMusic.style.display = "block";
 })
 
+if(window.location.pathname == "/studbud/task.html") {
+	document.getElementById("music").addEventListener("click", ()=> {
+		modalMusic.style.display = "block";
+	})
+}
+
 musicClose.addEventListener("click", () => {
     n = 0, flag = true;
     initInfo(n);

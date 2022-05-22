@@ -9,12 +9,9 @@ let timer = document.querySelector(".timer"),
     reset = document.querySelector(".reset"),
     timerH = document.getElementById("timer-h"),
     timerM = document.getElementById("timer-m"),
-
-    // timerS = document.getElementById("timer-s"),
     changeTitle = document.querySelector(".change-title"),
     changeCircle = document.querySelector(".change-circle"),
     timerReg = /[^0-9]/g;
-// timerReg = /([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])/;
 
 let progress = document.querySelector(".progress");
 let finish = document.querySelector(".finish");
@@ -58,6 +55,19 @@ timer.addEventListener("click", () => {
         pomodoro.style.display = "block";
     }
 })
+
+if(window.location.pathname == "/studbud/task.html") {
+	document.getElementById("alarmClock").addEventListener("click", ()=> {
+		modalTimer.style.display = "block";
+		if (statusTimer == "stopwatch") {
+			stopwatch.style.display = "block";
+			pomodoro.style.display = "none";
+		} else {
+			stopwatch.style.display = "none";
+			pomodoro.style.display = "block";
+		}
+	})
+}
 
 timerClose.addEventListener("click", () => {
     if (isStarted) {
@@ -184,7 +194,7 @@ function timers(seconds) { //counts time, takes seconds
     }, 1000);
 }
 
-function displayTimeLeft(timeLeft) { //displays time on the input
+function displayTimeLeft(timeLeft) {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     let displayString = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -192,3 +202,45 @@ function displayTimeLeft(timeLeft) { //displays time on the input
     displayRemainPercentage.textContent = `${parseFloat(360 / 3.6 * timeLeft / wholeTime).toFixed(2)} %`;
     update(timeLeft, wholeTime);
 }
+
+
+let session1 = document.querySelector(".session1"),
+	session2 = document.querySelector(".session2"),
+	num = document.querySelector(".num"),
+	sessionNum = 1,
+	pomodoroStart = document.querySelector(".pomodoroStart"),
+	pomodoroFocus = document.querySelector(".pomodoro-focus"),
+	pomodoroBreak = document.querySelector(".pomodoro-break"),
+	pomTimeReg =  /^(([0-2][0-3])|([0-1][0-9])):[0-5][0-9]$/;
+	
+session1.addEventListener("click", ()=> {
+	sessionNum++;
+	if(sessionNum == 0) {
+		sessionNum = 1;
+		num.innerHTML = 1;
+		return;
+	}
+	num.innerHTML = sessionNum;
+})	
+session2.addEventListener("click", ()=> {
+	sessionNum--;
+	if(sessionNum == 0) {
+		sessionNum = 1;
+		num.innerHTML = 1;
+		return;
+	}
+	num.innerHTML = sessionNum;
+})
+
+pomodoroStart.addEventListener("click", ()=> {
+	let pomodoroStartValue = pomodoroStart.value,
+		pomodoroBreakValue = pomodoroBreak.value;
+	if(!pomTimeReg.test(pomodoroStart.value)) {
+		alert("Please enter the correct start time");
+		return;
+	}
+	if(!pomTimeReg.test(pomodoroBreakValue)) {
+		alert("Please enter the correct break time");
+		return;
+	}
+})

@@ -1,4 +1,6 @@
 let task = document.getElementById("task"),
+	conetnt = document.querySelector(".conetnt"),
+	todoList = document.getElementById("todoList"),
 	modal = document.querySelector(".modal"),
 	modalMask = document.querySelector(".modal-mask"),
 	modalTitle = document.querySelector(".modal-title"),
@@ -19,7 +21,7 @@ window.onload = function () {
 }
 
 window.onresize = function () {
-	mainWidth();
+	setWidth();
 }
 
 modalMask.addEventListener("click", () => {
@@ -35,10 +37,13 @@ for (let i = 0; i < priorityPatingDom.length; i++) {
 	}
 }
 
+todoList.addEventListener("click",()=> {
+	conetnt.scrollLeft = task.scrollWidth;
+})
+
 function createTask() {
 	task.innerHTML = "";
 	let taskList = JSON.parse(localStorage.getItem("taskList"));
-	console.log(taskList)
 	if (taskList && taskList.length > 0) {
 		for (let i = 0; i < taskList.length; i++) {
 			let { taskTitle, data } = taskList[i];
@@ -107,7 +112,7 @@ function createTask() {
 		}
 	}
 	createAddColomn();
-	mainWidth();
+	setWidth();
 }
 
 // 判断是否是今天
@@ -171,10 +176,20 @@ function addColumn() {
 	}
 }
 
-function mainWidth() {
+function setWidth() {
+	let taskItem = document.querySelectorAll(".task-item");
+	if(window.innerWidth <= 768) {
+		for(let i = 0; i < taskItem.length; i++) {
+			taskItem[i].style.width = window.innerWidth - 40 + "px";
+		}
+	}
+	mainWidth(window.innerWidth <= 768 ? taskItem[0].style : 386)
+}
+
+function mainWidth(wid) {
 	let task = document.getElementById("task"),
 		taskItem = document.querySelectorAll(".task-item");
-	task.style.width = (taskItem.length * 386 + taskItem.length * 21) + "px";
+	task.style.width = (taskItem.length * wid + taskItem.length * 21) + "px";
 }
 
 // RGB color random
@@ -325,18 +340,6 @@ save.addEventListener("click", () => {
 	createColoum = null;
 	createTask();
 })
-
-// Timer
-// let timer = document.querySelector(".timer"),
-// 	start = document.querySelector(".start"),
-// 	reset = document.querySelector(".reset"),
-// 	timerH = document.getElementById("timer-h"),
-// 	timerM = document.getElementById("timer-m"),
-// 	timerS = document.getElementById("timer-s"),
-// 	changeTitle = document.querySelector(".change-title"),
-// 	changeCircle = document.querySelector(".change-circle"),
-// 	stopwatch = document.querySelector(".stopwatch"),
-// 	timerReg = /([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])/;
 
 
 
