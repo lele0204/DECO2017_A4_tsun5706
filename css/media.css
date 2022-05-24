@@ -151,6 +151,46 @@
 	.task-item {
 		padding: 1%;
 	}
+	.timer-content, .music-content{
+		width: 90%;
+	}
+	.con, #playTime{
+		width: 90%;
+		margin: 4% auto 0;
+	}
+	#progrees {
+		width: 90%;
+	}
+	.timer-title img {
+		width: 30px;
+		height: 30px;
+	}
+	.timer-form, .timer-form input {
+		font-size: 70px;
+		line-height: 120px;
+	}
+	.timer-content button {
+		font-size: 40px;
+		line-height: 70px;
+	}
+	.pomodoro-title span, .pomodoro-timer input, .pomodoro-s .session {
+		font-size: 20px;
+	}
+	.ride {
+		font-size: 36px;
+	}
+	.pomodoro-title span, .pomodoro-s .session {
+		margin-bottom: 3%;
+	}
+	.pomodoro-s .session{
+		margin-bottom: 2%;
+	}
+	.pomodoro-s {
+		margin-top: 2% !important;
+	}
+	.pomodoro-title, .pomodoro-timer, .pomodoro-s {
+		margin: 0 14%;
+	}
 }
 @media (max-width:640px){
 	.modal-title, .timer-title {
@@ -165,6 +205,9 @@
 		font-size: 26px;
 		line-height: 52px;
 	}	
+	.pomodoro-title, .pomodoro-timer, .pomodoro-s {
+		margin: 0 8%;
+	}
 }
 @media (max-width:475px){	
 	.logo {
@@ -189,8 +232,7 @@
 	.conetnt-body input[type="submit"] {
 		font-size: 30px;
 	}	
-}
-@media (max-width:375px){	
-}
-@media (max-width:320px){	
+	.pomodoro-title, .pomodoro-timer, .pomodoro-s {
+		margin: 0 2%;
+	}
 }

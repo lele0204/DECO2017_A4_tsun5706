@@ -11,7 +11,7 @@ let task = document.getElementById("task"),
 	subjectDom = document.getElementById("subject"),
 	titleDom = document.getElementById("title"),
 	descriptionDom = document.getElementById("description"),
-	status = document.getElementById("status"),
+	statusDom = document.getElementById("status"),
 	dateDom = document.getElementById("date"),
 	hourDom = document.getElementById("hour"),
 	minuteDom = document.getElementById("minute");
@@ -37,7 +37,7 @@ for (let i = 0; i < priorityPatingDom.length; i++) {
 	}
 }
 
-todoList.addEventListener("click",()=> {
+todoList.addEventListener("click", () => {
 	conetnt.scrollLeft = task.scrollWidth;
 })
 
@@ -165,8 +165,13 @@ function addColumn() {
 		let obj = { "taskTitle": columnTitleVal, data: [], "time": Date.parse(new Date()) }
 		if (taskList) {
 			let taskListArr = JSON.parse(taskList);
-			taskListArr.push(obj);
-			localStorage.setItem("taskList", JSON.stringify(taskListArr));
+			let index = taskListArr.findIndex(v => v.taskTitle == columnTitleVal);
+			if (index > 0) {
+				alert("Type a column title has repeart");
+			} else {
+				taskListArr.push(obj);
+				localStorage.setItem("taskList", JSON.stringify(taskListArr));
+			}
 		} else {
 			arr.push(obj);
 			localStorage.setItem("taskList", JSON.stringify(arr));
@@ -178,8 +183,8 @@ function addColumn() {
 
 function setWidth() {
 	let taskItem = document.querySelectorAll(".task-item");
-	if(window.innerWidth <= 768) {
-		for(let i = 0; i < taskItem.length; i++) {
+	if (window.innerWidth <= 768) {
+		for (let i = 0; i < taskItem.length; i++) {
 			taskItem[i].style.width = window.innerWidth - 40 + "px";
 		}
 	}
@@ -208,7 +213,6 @@ function editColumnHandle(i, j) {
 	coloumItemIndex = j;
 	editAdd = "edit";
 	let taskList = JSON.parse(localStorage.getItem("taskList"));
-	console.log(i, j)
 	modalTitle.innerHTML = "EDIT A TASK";
 	cancel.style.display = "none";
 	del.style.display = "block";
@@ -244,8 +248,15 @@ function taskColumnHandle(i) {
 
 function statusVal() {
 	let taskList = JSON.parse(localStorage.getItem("taskList"));
+	statusDom.innerHTML = "";
+	taskList.forEach((item, index) => {
+		let html = document.createElement("option");
+		html.setAttribute("value", item.taskTitle);
+		html.innerHTML = item.taskTitle;
+		statusDom.appendChild(html);
+	});
 	taskList.forEach((v, i) => {
-		if (i == coloumIndex) status.value = v.taskTitle;
+		if (i == coloumIndex) statusDom.value = v.taskTitle;
 	});
 
 }
@@ -321,19 +332,16 @@ save.addEventListener("click", () => {
 		"subject": subjectVal,
 		"title": titleVal,
 		"description": descriptionVal,
-		"status": status.value,
+		"status": statusDom.value,
 		"date": dateVal,
 		"hour": hourVal,
 		"minute": minuteVal,
 		"priorityPating": priorityPatingVal
 	}
 
-	if (editAdd == "add") {
-		taskList[coloumIndex].data.push(obj);
-	} else {
-		taskList[coloumIndex].data[coloumItemIndex] = obj;
-		console.log(editAdd)
-	}
+	taskList[coloumIndex].data.splice(coloumItemIndex, 1);
+	let index = taskList.findIndex(v => v.taskTitle == statusDom.value);
+	taskList[index].data.push(obj);
 	localStorage.removeItem("taskList");
 	localStorage.setItem("taskList", JSON.stringify(taskList))
 	modal.style.display = "none";

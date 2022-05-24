@@ -2,27 +2,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/media.css">
-    <title>content</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/media.css">
+	<title>content</title>
 </head>
 
 <body>
-    <div class="container">
-        <header class="d-flex d-ai-c d-jc-sb">
-            <a href="task.html" class="logo">STUDBUD</a>
-            <nav>
-                <a href="task.html">TASK</a>
+	<div class="container">
+		<header class="d-flex d-ai-c d-jc-sb">
+			<a href="task.html" class="logo">STUDBUD</a>
+			<nav>
+				<a href="task.html">TASK</a>
 				<a href="javascript:;" class="timer">TIMER</a>
-                <a class="active" href="content.html">CONTENT</a>
+				<a class="active" href="content.html">CONTENT</a>
 				<a href="javascript:;" class="music-btn">MUSIC</a>
-            </nav>
-        </header>
+			</nav>
+		</header>
 		<div class="conetnt">
 			<div class="icon d-flex d-ai-c d-jc-c">
 				<img src="images/summarize.svg" alt="" srcset="">
@@ -32,18 +32,90 @@
 				<form onsubmit="return false;">
 					<div class="form-div">
 						<label for="keyword">KEYWORD(S)</label>
-						<input type="text" name="keyword" id="keyword" placeholder="beats per minute" oninput="keywordChange()"/>
+						<input type="text" name="keyword" id="keyword" placeholder="beats per minute"
+							oninput="keywordChange()" />
 					</div>
 					<div class="form-div d-flex d-ai-fe d-jc-sb">
 						<div class="">
 							<label for="idealName">IDEAL NAME</label>
 							<input type="text" name="idealName" id="idealName" placeholder="BPM" readonly />
-						</div>	
+						</div>
 						<input type="submit" class="generate" value="GENERATE">
 					</div>
 				</form>
 			</div>
 		</div>
+
+
+
+
+		<div class="modal-timer">
+			<div class="modal-mask"></div>
+			<div class="timer-content">
+				<div class="timer-icon">
+					<img src="images/off.svg" class="timer-close" alt="">
+					<img src="images/jiandiao.png" class="timer-hide" alt="">
+				</div>
+				<p class="timer-title d-flex d-ai-c d-jc-c">
+					<span class="change-title">STOPWATCH</span>
+					<img src="images/change_circle.svg" alt="" class="change-circle">
+				</p>
+				<div class="stopwatch">
+					<div class="timer-form d-flex d-ai-c d-jc-c">
+						<input type="text" id="timer-h" placeholder="00">:
+						<input type="text" id="timer-m" placeholder="00">
+					</div>
+					<div class="d-flex d-ai-c d-jc-c d-fd-c">
+						<button class="start">START</button>
+						<button class="reset">RESET</button>
+					</div>
+				</div>
+				<div class="pomodoro">
+					<div class="pomodoro-title d-flex d-ai-c d-jc-sb">
+						<span>FOCUS</span>
+						<span>BREAK</span>
+					</div>
+					<div class="pomodoro-timer d-flex d-ai-c d-jc-sb">
+						<input type="text" placeholder="00:00" class="pomodoro-focus" />
+						<input type="text" placeholder="00:00" class="pomodoro-break" />
+						<span class="ride">x</span>
+					</div>
+					<div class="pomodoro-s d-flex d-ai-c d-jc-sb">
+						<div class="pomodoro-s-left">
+							<span class="session">SESSION</span>
+							<div class="pomodoro-s-change d-flex d-ai-c">
+								<img src="images/shang.png" alt="" class="session1">
+								<span class="num">1</span>
+								<img src="images/xia.png" alt="" class="session2">
+							</div>
+						</div>
+						<button class="pomodoroStart">START</button>
+					</div>
+				</div>
+				<div class="progress">
+					<div class="circle">
+						<svg width="300" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+							<g transform="translate(110,110)">
+								<circle r="100" class="e-c-base" />
+								<g transform="rotate(-90)">
+									<circle r="100" class="e-c-progress" />
+									<g id="e-pointer">
+										<circle cx="100" cy="0" r="8" class="e-c-pointer" />
+									</g>
+								</g>
+							</g>
+						</svg>
+					</div>
+					<div class="controlls">
+						<div class="display-remain-time"></div>
+						<div class="display-remain-percentage"></div>
+						<div class="display-remain-break"></div>
+					</div>
+					<button class="finish">FINISH</button>
+				</div>
+			</div>
+		</div>
+
 		<div class="modal-music">
 			<div class="modal-mask"></div>
 			<div class="music-content">
@@ -81,9 +153,9 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 
-    <script src="js/content.js"></script>
+	<script src="js/content.js"></script>
 	<script src="js/timer.js"></script>
 	<script src="js/music.js"></script>
 </body>

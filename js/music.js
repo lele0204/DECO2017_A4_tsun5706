@@ -1,4 +1,4 @@
-let play = document.querySelector("#play"),
+let play = document.querySelector("#player"),
     audio = document.querySelector("#audio"),
     musicImage = document.querySelector(".musicImage"),
     names = document.querySelector(".names"),
@@ -48,10 +48,10 @@ musicBtn.addEventListener("click", () => {
     modalMusic.style.display = "block";
 })
 
-if(window.location.pathname == "/studbud/task.html") {
-	document.getElementById("music").addEventListener("click", ()=> {
-		modalMusic.style.display = "block";
-	})
+if (window.location.pathname == "/task.html") {
+    document.getElementById("music").addEventListener("click", () => {
+        modalMusic.style.display = "block";
+    })
 }
 
 musicClose.addEventListener("click", () => {
