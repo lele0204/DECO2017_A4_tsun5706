@@ -6,16 +6,23 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport"
 		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<!-- Reset default style -->
 	<link rel="stylesheet" href="css/reset.css">
+	<!-- Main style -->
 	<link rel="stylesheet" href="css/style.css">
+	<!-- Responsive style -->
 	<link rel="stylesheet" href="css/media.css">
+	<!-- page title name -->
 	<title>ACRONYMS LIST</title>
 </head>
 
 <body>
 	<div class="container">
+		<!-- page top start -->
 		<header class="d-flex d-ai-c d-jc-sb">
+			<!-- page logo -->
 			<a href="task.html" class="logo">STUDBUD</a>
+			<!-- page nav -->
 			<nav>
 				<a href="task.html">TASK</a>
 				<a href="javascript:;" class="timer">TIMER</a>
@@ -23,63 +30,92 @@
 				<a href="javascript:;" class="music-btn">MUSIC</a>
 			</nav>
 		</header>
+		<!-- page top end -->
+
+		<!-- ACRONYMS LIST conetnt start -->
 		<div class="conetnt">
+			<!-- close contentAcronymsList.html link content.html -->
 			<div class="icon d-flex d-ai-c d-jc-c" id="close">
 				<img src="images/off.svg" alt="" srcset="">
 			</div>
+			<!-- ACRONYMS LIST content -->
 			<div class="conetnt-body conetnt-body-list">
 				<p>ACRONYMS LIST</p>
 				<div id="list"></div>
 			</div>
+			<!-- drag delete  ACRONYMS LIST Item -->
 			<div class="icon-del d-flex d-ai-c d-jc-c" id="iconDel">
 				<img src="images/delete.svg" alt="" srcset="">
 			</div>
 		</div>
+		<!-- ACRONYMS LIST conetnt end -->
 
+		<!-- timer modal -->
 		<div class="modal-timer">
+			<!-- timer Mask -->
 			<div class="modal-mask"></div>
+			<!-- timer content start -->
 			<div class="timer-content">
+				<!-- close hide icon -->
 				<div class="timer-icon">
 					<img src="images/off.svg" class="timer-close" alt="">
 					<img src="images/jiandiao.png" class="timer-hide" alt="">
 				</div>
+				<!-- STOPWATCH Countdown start -->
 				<p class="timer-title d-flex d-ai-c d-jc-c">
 					<span class="change-title">STOPWATCH</span>
+					<!-- change STOPWATCH and POMODORO -->
 					<img src="images/change_circle.svg" alt="" class="change-circle">
 				</p>
 				<div class="stopwatch">
 					<div class="timer-form d-flex d-ai-c d-jc-c">
+						<!-- set time -->
 						<input type="text" id="timer-h" placeholder="00">:
 						<input type="text" id="timer-m" placeholder="00">
 					</div>
+					<!-- start / reser STOPWATCH  -->
 					<div class="d-flex d-ai-c d-jc-c d-fd-c">
 						<button class="start">START</button>
 						<button class="reset">RESET</button>
 					</div>
 				</div>
+				<!-- STOPWATCH Countdown end -->
+
+				<!-- POMODORO Countdown start -->
 				<div class="pomodoro">
+					<!-- set FOCUS and  BREAK title -->
 					<div class="pomodoro-title d-flex d-ai-c d-jc-sb">
 						<span>FOCUS</span>
 						<span>BREAK</span>
 					</div>
+					<!-- set FOCUS and  BREAK time -->
 					<div class="pomodoro-timer d-flex d-ai-c d-jc-sb">
 						<input type="text" placeholder="00:00" class="pomodoro-focus" />
 						<input type="text" placeholder="00:00" class="pomodoro-break" />
 						<span class="ride">x</span>
 					</div>
+					<!-- set SESSION for count -->
 					<div class="pomodoro-s d-flex d-ai-c d-jc-sb">
 						<div class="pomodoro-s-left">
 							<span class="session">SESSION</span>
 							<div class="pomodoro-s-change d-flex d-ai-c">
+								<!-- add SESSION count -->
 								<img src="images/shang.png" alt="" class="session1">
+								<!-- show SESSION count -->
 								<span class="num">1</span>
+								<!-- reduce SESSION count -->
 								<img src="images/xia.png" alt="" class="session2">
 							</div>
 						</div>
+						<!-- start POMODORO -->
 						<button class="pomodoroStart">START</button>
 					</div>
 				</div>
+				<!-- POMODORO Countdown end -->
+
+				<!-- POMODORO progress show-->
 				<div class="progress">
+					<!-- circle -->
 					<div class="circle">
 						<svg width="300" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
 							<g transform="translate(110,110)">
@@ -94,55 +130,84 @@
 						</svg>
 					</div>
 					<div class="controlls">
+						<!-- Countdown time -->
 						<div class="display-remain-time"></div>
+						<!-- percentage time -->
 						<div class="display-remain-percentage"></div>
+						<!-- break schedule -->
 						<div class="display-remain-break"></div>
 					</div>
+					<!-- FINISH POMODORO Countdown -->
 					<button class="finish">FINISH</button>
 				</div>
 			</div>
+			<!-- timer content end -->
 		</div>
+
+		<!-- music modal -->
 		<div class="modal-music">
+			<!-- music Mask -->
 			<div class="modal-mask"></div>
+			<!-- music content start -->
 			<div class="music-content">
+				<!-- close hide icon -->
 				<div class="timer-icon">
 					<img src="images/off.svg" class="music-close" alt="">
 					<img src="images/jiandiao.png" class="music-hide" alt="">
 				</div>
+				<!-- music player -->
 				<div id="player">
 					<div id="playerControl">
+						<!-- Music cover  -->
 						<div class="playerImg">
 							<img src="images/alarm.svg" class="musicImage">
-							<audio id="audio">
-								<source src="music/1.mp3">
-							</audio>
 						</div>
 						<div class="con d-flex d-ai-c d-jc-sb">
 							<div class="contr">
+								<!-- Music name  -->
 								<p class="names"></p>
+								<!-- Music writer  -->
 								<p class="authors"></p>
 							</div>
 							<div id="pcontrol" class="d-flex d-ai-c d-jc-c">
-								<button class="prev" title="prev"></button>
-								<button id="play" class="play1" title="play"></button>
-								<button class="next" title="next"></button>
+								<!-- Play the previous song -->
+								<button class="prev"></button>
+								<!-- play and pause -->
+								<img class="play-pause" src="../images/play.png" alt="">
+								<!-- Play next song -->
+								<button class="next"></button>
 							</div>
 						</div>
 					</div>
-					<div id="progrees">
-						<div id="curProgrees"></div>
-					</div>
-					<div id="playTime" class="d-flex d-jc-sb d-ai-c">
-						<span id="presentTime">00 : 00</span>
-						<span id="totalTime">00 : 00</span>
+					<div class="con">
+						<!-- set Music song -->
+						<audio src="music/1.mp3" id="audio"></audio>
+						<!-- Music progress -->
+						<div class="progress-box">
+							<!-- Drag and drop to control music playing progress -->
+							<div class="progress-bar">
+								<div class="progress-dragger"></div>
+							</div>
+						</div>
+						<!-- music time -->
+						<div class="playTime">
+							<!-- music start time -->
+							<span class="time current-time">00:00</span>
+							<!-- music end time -->
+							<span class="time duration">00:00</span>
+						</div>
 					</div>
 				</div>
 			</div>
+			<!-- music content end -->
 		</div>
 	</div>
 
+	<!-- contentAcronymsList page javascript -->
 	<script src="js/contentAcronymsList.js"></script>
+	<!-- timer Countdown javascript -->
 	<script src="js/timer.js"></script>
+	<!-- music player javascript -->
 	<script src="js/music.js"></script>
 </body>
 

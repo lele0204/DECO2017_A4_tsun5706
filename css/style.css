@@ -1,3 +1,4 @@
+/* Import font package  */
 @font-face {
     font-family: 'Rampart One';
     src: url("../fonts/RampartOne-Regular/RampartOne-Regular.ttf");
@@ -10,6 +11,7 @@
     font-family: 'Livvic';
     src: url("../fonts/Livvic/Livvic-SemiBold.ttf");
 }
+/* Set public style */
 .d-flex {
     display: flex;
 }
@@ -296,6 +298,14 @@ nav a:hover {
 	border-radius: 66px;
 	min-height: calc(100vh - 130px);
 	flex: 1;
+	position: relative;
+}
+.del-img {
+	position: absolute;
+	top: 24px;
+	right: 30px;
+	background-color: #fff;
+	border-radius: 50%;
 }
 .task-item-handle input,
 .task-item-handle button {
@@ -339,10 +349,6 @@ nav a:hover {
 	border-radius: 24px;
 	padding: 0 4%;
 	cursor: pointer;
-}
-.task-item-handle img {
-	width: 41px;
-	height: 41px;
 }
 .task-item-handle span {
 	font-family: 'Saira';
@@ -625,7 +631,6 @@ nav a:hover {
 	background-color: #A0ACCB;
 	color: #fff;
 }
-/* ddddddddddddddddddddddddddddddddd */
 .stopwatch,
 .pomodoro{
 	display: none;
@@ -752,37 +757,6 @@ nav a:hover {
 #e-pointer {
 	transition: transform 0.7s;
 }
-
-
-/* .progress {
-	margin: 20px 0;
-}
-.circle {
-	margin: 0 auto;
-	width: 250px;
-	height: 250px;
-	border: 8px solid #F99E9E;
-	border-radius: 50%;
-	position: relative;
-}
-.ball {
-	width: 44px;
-	height: 44px;
-	border-radius: 50%;
-	background-color: #A7DAA9;
-	position: absolute;
-	left: 50%;
-	margin-left: -22px;
-	top: -22px;
-}
-.ball span {
-	font-family: 'Livvic';
-	font-style: normal;
-	font-weight: 600;
-	font-size: 16px;
-	line-height: 9px;
-	color: #FFFFFF;
-} */
 #player {
 	margin-top: 20px;
 }
@@ -799,13 +773,13 @@ nav a:hover {
 #pcontrol button:nth-of-type(1) {
 	background: url("../images/shangyige.png") center center no-repeat;
 }
-#pcontrol button:nth-of-type(2).play1 {
+/* #pcontrol button:nth-of-type(2).play1 {
 	background: url("../images/play.png") center center no-repeat;
 }
 #pcontrol button:nth-of-type(2).play2 {
 	background: url("../images/zanting.png") center center no-repeat;
-}
-#pcontrol button:nth-of-type(3) {
+} */
+#pcontrol button:nth-of-type(2) {
 	background: url("../images/xiayige.png") center center no-repeat;
 }
 .playerImg {
@@ -816,8 +790,16 @@ nav a:hover {
 	height: 280px;
 	border-radius: 33px;
 }
+#ball {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: #000;
+	position:absolute;
+	top: -6px;
+}
 .con {
-	margin: 20px auto 0;
+	margin: 20px auto;
     width: 498px;
 }
 .con .contr p:nth-of-type(1) {
@@ -848,9 +830,36 @@ nav a:hover {
     height: 100%;
     background: #88BEE2;
 }
-#playTime{
+/* music */
+.progress-box {
+    height: 5px;
+    background: rgba(241, 241, 241, 1);
+}
+.progress-bar {
+	width: 0;
+	height: 5px;
+	background: #88BEE2;
+	position: relative;
+}
+
+.progress-dragger {
+	width: 14px;
+	height: 14px;
+	background: url('../images/yuan.png') no-repeat;
+	background-size: 100%;
+	position: absolute;
+	top: 50%;
+	right: -9px;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+.playTime{
     margin: 16px auto 0;
-    width: 498px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.time {
 	font-family: 'Livvic';
 	font-style: normal;
 	font-weight: 600;

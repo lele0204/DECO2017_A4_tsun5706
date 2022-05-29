@@ -1,40 +1,45 @@
+// get page dom
 let generate = document.querySelector(".generate"),
 	keyword = document.getElementById("keyword"),
 	idealName = document.getElementById("idealName"),
 	icon = document.querySelector(".icon");
 
-function keywordChange(){
+// handle field KEYWORD
+function keywordChange() {
 	let keywordVal = keyword.value.trim(), reg = /[^\a-\z\A-\Z|, ]/g;
-	if(reg.test(keywordVal)) {
+	if (reg.test(keywordVal)) {  // rule keyword
 		alert("Keywords must be enter English or space");
 		return;
 	} else {
 		idealName.value = "";
 		let keywordArr = keywordVal.split(" "), str = "";
-		for(let i = 0; i < keywordArr.length; i++) {
+		for (let i = 0; i < keywordArr.length; i++) {
 			str += keywordArr[i].substring(0, 1)
 			idealName.value = str;
 		}
 	}
 }
 
-icon.addEventListener("click", ()=> {
-	window.location.href="./contentAcronymsList.html";
+// link to contentAcronymsList.html
+icon.addEventListener("click", () => {
+	window.location.href = "./contentAcronymsList.html";
 })
 
 // generate send form
-generate.addEventListener("click", ()=> {
-	let keywordVal = keyword.value.trim(), 
-		idealNameVal = idealName.value.trim(), 
+generate.addEventListener("click", () => {
+	let keywordVal = keyword.value.trim(),
+		idealNameVal = idealName.value.trim(),
 		acronymsList = localStorage.getItem("acronymsList");
-		
-	if(keywordVal == "") {
+
+	if (keywordVal == "") {  // rule keyword
 		alert("Keywords must be filled in");
 		return;
 	}
-	if(keywordVal && idealNameVal) {
-		let obj = {"id": (acronymsList && JSON.parse(acronymsList).length) > 0 ? JSON.parse(acronymsList).length : 0,"keyword": keywordVal, "idealName": idealNameVal, "time": Date.parse(new Date())}
-		if(acronymsList) {
+	if (keywordVal && idealNameVal) {
+		// form data Object
+		let obj = { "id": (acronymsList && JSON.parse(acronymsList).length) > 0 ? JSON.parse(acronymsList).length : 0, "keyword": keywordVal, "idealName": idealNameVal, "time": Date.parse(new Date()) }
+		// form data localStorage
+		if (acronymsList) {
 			let acronymsListArr = JSON.parse(acronymsList);
 			acronymsListArr.push(obj);
 			localStorage.setItem("acronymsList", JSON.stringify(acronymsListArr));
@@ -43,6 +48,7 @@ generate.addEventListener("click", ()=> {
 			arr.push(obj);
 			localStorage.setItem("acronymsList", JSON.stringify(arr));
 		}
-		window.location.href="./contentAcronymsList.html";
+		// success link to contentAcronymsList.htm
+		window.location.href = "./contentAcronymsList.html";
 	}
 })

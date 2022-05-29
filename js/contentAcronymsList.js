@@ -1,6 +1,8 @@
+// get page dom
 let close = document.getElementById("close"),
 	iconDel = document.getElementById("iconDel");
 
+// Render on page load
 window.onload = function () {
 	createList("alphabetical order");
 }
@@ -10,22 +12,16 @@ close.addEventListener("click", () => {
 	window.location.href = "./content.html";
 });
 
-// clear contentAcronymsList data
-// iconDel.addEventListener("click", () => {
-// 	let acronymsList = JSON.parse(localStorage.getItem("acronymsList"));
-// 	if (acronymsList.length > 0) {
-// 		localStorage.removeItem("acronymsList");
-// 		createList("alphabetical order");
-// 	}
-// })
-
+// create page Info
+// params type: String || Null
 function createList(params) {
 	let list = document.getElementById("list"),
 		acronymsList = JSON.parse(localStorage.getItem("acronymsList")),
 		arr = sortArr(acronymsList),
-		val = null;//用来记录第一个键值对的值;
-	list.innerHTML = "";
+		val = null;//Used to record the value of the first key value pair;
+	list.innerHTML = "";  //clear list content
 	if (params == "alphabetical order") {
+		// Cycling data, creating page content
 		for (let key in arr) {
 			if (val == null) val = arr[key]["index"] = 0;
 			let conetntItem = document.createElement("div");
@@ -76,7 +72,7 @@ function createList(params) {
 				_li.setAttribute("ondragend", "handleDragEnd(this, event)");
 				let _b = document.createElement("b");
 				_b.innerHTML = "x";
-				_b.setAttribute("onclick", "rowDel("+ arr[key].data[i].id +")");
+				_b.setAttribute("onclick", "rowDel(" + arr[key].data[i].id + ")");
 				_li.appendChild(_b);
 				let _div = document.createElement("div");
 				_div.classList.add("d-flex");
@@ -147,7 +143,7 @@ function createList(params) {
 			_li.setAttribute("ondragend", "handleDragEnd(this, event)");
 			let _b = document.createElement("b");
 			_b.innerHTML = "x";
-			_b.setAttribute("onclick", "rowDel("+ acronymsList[i].id +")");
+			_b.setAttribute("onclick", "rowDel(" + acronymsList[i].id + ")");
 			_li.appendChild(_b);
 			let _div = document.createElement("div");
 			_div.classList.add("d-flex");
@@ -175,51 +171,52 @@ function createList(params) {
 		list.appendChild(conetntList);
 	}
 }
-
+// drag item from right icon delete
 function handleDragStart(that, e) {
 	that.style.opacity = '0.8';
 	e.dataTransfer.effectAllowed = 'move';
 	e.dataTransfer.setData('text/html', that.innerHTML);
-	let id = that.getAttribute("data-id");
-	event.dataTransfer.setData('id', id);
+	let id = that.getAttribute("data-id"); // set item dataTransfer id
+	e.dataTransfer.setData('id', id);
 }
-
 function handleDragOver(that, e) {
 	if (e.preventDefault) {
-		e.preventDefault();
+		e.preventDefault();  // Block default actions
 	}
 	e.dataTransfer.dropEffect = 'move';
 	return false;
 }
-
 function handleDragEnd(that, e) {
 	that.style.opacity = '1';
 }
-iconDel.ondragover = function () {
-	event.preventDefault();
+iconDel.ondragover = function (event) {
+	event.preventDefault();  // Block default actions
 }
 iconDel.ondrop = function (event) {
-	let id = event.dataTransfer.getData('id');
-	if(id) {
-		rowDel(id)
+	let id = event.dataTransfer.getData('id'); // get item dataTransfer id
+	if (id) {
+		rowDel(id); //delete
 	}
 	event.stopPropagation();
 }
 
+// delete item data and Update local storage data
 function rowDel(id) {
 	let acronymsList = JSON.parse(localStorage.getItem("acronymsList"));
-	let index = acronymsList.findIndex(v=> v.id == id),
+	let index = acronymsList.findIndex(v => v.id == id),
 		sortByChoose = document.querySelector(".sort-by-choose");
-	acronymsList.splice(index, 1);
-	localStorage.setItem("acronymsList", JSON.stringify(acronymsList))
+	acronymsList.splice(index, 1); // delete 
+	localStorage.setItem("acronymsList", JSON.stringify(acronymsList))  //update
 	createList(sortByChoose.innerHTML);
 }
 
+// add / remove classList 
 function sortByChooseHandle() {
 	let sortBySelect = document.querySelector(".sort-by-select");
 	sortBySelect.classList.value == "sort-by-select" ? sortBySelect.classList.add("active") : sortBySelect.classList.remove("active");
 }
 
+// choose sort name create page
 function sortByChooseSpanHandle(that) {
 	let sortBySelect = document.querySelector(".sort-by-select"),
 		sortByChoose = document.querySelector(".sort-by-choose");
@@ -228,6 +225,8 @@ function sortByChooseSpanHandle(that) {
 	createList(that.innerHTML);
 }
 
+// Sort data
+// list type: Array
 function sortArr(list) {
 	if (list == null) return;
 	let pinyinArray = [], newArr = [], reg = /^[A-Za-z]*$/, obj = {};

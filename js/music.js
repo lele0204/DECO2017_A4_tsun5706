@@ -1,17 +1,5 @@
-let play = document.querySelector("#player"),
-    audio = document.querySelector("#audio"),
-    musicImage = document.querySelector(".musicImage"),
-    names = document.querySelector(".names"),
-    authors = document.querySelector(".authors"),
-    next = document.querySelector(".next"),
-    prev = document.querySelector(".prev"),
-    totalTime = document.querySelector("#totalTime"),
-    presentTime = document.querySelector("#presentTime"),
-    modalMusic = document.querySelector(".modal-music"),
-    musicClose = document.querySelector(".music-close"),
-    musicHide = document.querySelector(".music-hide"),
-    musicBtn = document.querySelector(".music-btn");
-let playerMusic = [
+let n = 0;  //default first song
+let playerMusic = [  // set song Array
     {
         id: 0,
         imgs: "images/alarm.svg",
@@ -34,119 +22,137 @@ let playerMusic = [
         src: "music/3.mp3"
     }
 ]
-var n = 0, flag = true; //song key
-initInfo(n);
 
-// Click play song and click play again to pause
-play.addEventListener("click", startPlay);
-// Click to switch to the next song
-next.addEventListener("click", theNext);
-// Click to switch to the previous song
-prev.addEventListener("click", thePrev);
+// get page dom
+let musicImage = document.querySelector(".musicImage"),
+    audio = document.querySelector("#audio"),
+    names = document.querySelector(".names"),
+    authors = document.querySelector(".authors"),
+    next = document.querySelector(".next"),
+    prev = document.querySelector(".prev"),
+    modalMusic = document.querySelector(".modal-music"),
+    musicClose = document.querySelector(".music-close"),
+    musicHide = document.querySelector(".music-hide"),
+    musicBtn = document.querySelector(".music-btn");
 
-musicBtn.addEventListener("click", () => {
-    modalMusic.style.display = "block";
-})
+let audioArr = document.querySelectorAll('audio');
+let img = document.querySelector('.play-pause');
 
-if (window.location.pathname == "/task.html") {
+if (window.location.pathname == "/task.html") {  // Determine whether the event is set only on task page
     document.getElementById("music").addEventListener("click", () => {
         modalMusic.style.display = "block";
     })
 }
-
+// music modal click show
+musicBtn.addEventListener("click", () => {
+    modalMusic.style.display = "block";
+})
+// music modal click close
 musicClose.addEventListener("click", () => {
-    n = 0, flag = true;
+    n = 0
     initInfo(n);
-    play.className = "play1";
-    play.title = "play";
+    img.src = "../images/play.png";
     modalMusic.style.display = "none";
 })
-
+// music modal click hide
 musicHide.addEventListener("click", () => {
     modalMusic.style.display = "none";
 })
-
-// play
-function startPlay() {
-    if (flag) {
-        play.className = "play2";
-        play.title = "pause";
-        audio.play();
-        playProgress();// Playback progress
-        playTime();// Playback time
-    } else {
-        play.className = "play1";
-        play.title = "play";
-        audio.pause();
-    }
-    flag = !flag;
+// init page info
+initInfo();
+function initInfo() {
+    musicImage.src = playerMusic[n].imgs; //music cover
+    audio.src = playerMusic[n].src; //music audio
+    names.innerHTML = playerMusic[n].title; //music name
+    authors.innerHTML = playerMusic[n].singer; //music writer
 }
 
-function initInfo(n) {
-    musicImage.src = playerMusic[n].imgs;
-    audio.src = playerMusic[n].src;
-    names.innerHTML = playerMusic[n].title;
-    authors.innerHTML = playerMusic[n].singer;
+// Time conversion
+const secondsToMS = (seconds) => {
+    const mm = (parseInt(seconds / 60) + '').padStart(2, '0');
+    const ss = (parseInt(seconds % 60) + '').padStart(2, '0');
+    return `${mm}:${ss}`
 }
 
-// next
-function theNext() {
+// drag music progress bars
+audioArr.forEach((audio) => {
+    const duration = document.querySelector('.duration')
+    let totalTime = 0
+    audio.addEventListener('canplay', function () {
+        totalTime = this.duration
+        duration.innerText = secondsToMS(totalTime)
+    })
+
+    const currentDuration = document.querySelector('.current-time')
+    const progressBars = document.querySelector('.progress-bar')
+    audio.addEventListener('timeupdate', function () {
+        const currentTime = this.currentTime;
+        currentDuration.innerText = secondsToMS(currentTime);
+        progressBars.style.width = (currentTime / totalTime * 100) + '%';
+    })
+    audio.addEventListener('ended', function () {
+        img.src = '../images/play.png'
+    })
+})
+
+// next play
+next.addEventListener("click", () => {
     n++;
-    if (n == playerMusic.length) {
-        n = 0;
-    }
+    if (n == playerMusic.length) n = 0;
     initInfo(n);
-    flag = true;
-    startPlay();
-}
-// prev
-function thePrev() {
+    audio.pause();
+    img.src = '../images/play.png';
+})
+// prev play
+prev.addEventListener("click", () => {
     n--;
     if (n < 0) {
         n = playerMusic.length - 1;
     }
     initInfo(n);
-    flag = true;
-    startPlay();
-}
+    audio.pause();
+    img.src = '../images/play.png';
+})
 
-function playProgress() {
-    var timer = null;
-    if (flag) {
-        timer = setInterval(function () {
-            if (audio.currentTime >= audio.duration) {
-                curProgrees.style.width = progrees.offsetWidth + "px";
-                clearInterval(timer);
-                theNext();
-            } else {
-                curProgrees.style.width = (audio.currentTime / audio.duration) * progrees.offsetWidth + "px";
-            }
-        }, 30);
+// Tap play / pause audio
+img.addEventListener('click', () => {
+    const currentAudio = document.querySelector('audio');
+    if (!currentAudio.paused) {
+        img.src = '../images/play.png'
+        currentAudio.pause();
     } else {
-        clearInterval(timer);
+        img.src = '../images/zanting.png'
+        currentAudio.play();
     }
+})
 
-}
-function playTime() {
-    var timer2 = null;
-    if (flag) {
-        timer2 = setInterval(function () {
-            setTime(audio.duration, totalTime);
-            setTime(audio.currentTime, presentTime);
-        }, 1000)
-    } else {
-        clearInterval(timer2)
+let progressBars, progresss, currentAudio
+// 拖动音频
+document.addEventListener('mousedown', (e) => {
+    if (e.target.className.includes('progress-dragger')) {
+        progressBars = e.target.parentNode
+        progresss = progressBars.parentNode
+        currentAudio = progresss.parentNode.parentNode.querySelector('audio')
+
+        document.addEventListener('mousemove', dragHandler)
+
+        document.addEventListener('mouseup', () => {
+            document.removeEventListener('mousemove', dragHandler)
+        })
     }
-}
-function setTime(audioTime, obj) {
-    allMinute = Math.floor(audioTime / 60);
-    if (allMinute < 10) {
-        allMinute = "0" + allMinute;
-    }
-    allSecond = Math.floor(audioTime % 60);
-    if (allSecond < 10) {
-        allSecond = "0" + allSecond;
-    }
-    var allTime = allMinute + " : " + allSecond;
-    obj.innerHTML = allTime;
+})
+
+const dragHandler = (e) => {
+    const progressClinetW = progresss.clientWidth
+    const startPos = progresss.getBoundingClientRect().left
+    const endPos = progresss.getBoundingClientRect().right
+    const pageX = e.pageX
+
+    const width = Math.max(startPos, Math.min(pageX, endPos)) - startPos
+
+    progressBars.style.width = width + 'px'
+
+    const currentTime = width / progressClinetW * currentAudio.duration
+
+    currentAudio.currentTime = currentTime
 }

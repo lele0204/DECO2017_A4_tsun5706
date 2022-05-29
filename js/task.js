@@ -1,3 +1,4 @@
+// get page dom
 let task = document.getElementById("task"),
 	conetnt = document.querySelector(".conetnt"),
 	todoList = document.getElementById("todoList"),
@@ -15,19 +16,40 @@ let task = document.getElementById("task"),
 	dateDom = document.getElementById("date"),
 	hourDom = document.getElementById("hour"),
 	minuteDom = document.getElementById("minute");
-
+// Render on page load
 window.onload = function () {
+	let taskList = localStorage.getItem("taskList");
+	if (taskList == null) {
+		let arr = [
+			{
+				data: [],
+				taskTitle: "TO DO",
+				time: Date.parse(new Date())
+			},
+			{
+				data: [],
+				taskTitle: "DOING",
+				time: Date.parse(new Date())
+			},
+			{
+				data: [],
+				taskTitle: "DONE",
+				time: Date.parse(new Date())
+			}
+		]
+		localStorage.setItem("taskList", JSON.stringify(arr));
+	}
 	createTask();
 }
-
+// Window variation sets the width of the column
 window.onresize = function () {
 	setWidth();
 }
-
+// task modal close
 modalMask.addEventListener("click", () => {
 	modal.style.display = "none";
 })
-
+// create priority
 for (let i = 0; i < priorityPatingDom.length; i++) {
 	priorityPatingDom[i].onclick = function () {
 		priorityPatingDom.forEach(v => v.classList.remove('active'));
@@ -36,11 +58,12 @@ for (let i = 0; i < priorityPatingDom.length; i++) {
 		}
 	}
 }
-
+// Click the todolist scroll bar to slide to the back
 todoList.addEventListener("click", () => {
 	conetnt.scrollLeft = task.scrollWidth;
 })
 
+// create task init 
 function createTask() {
 	task.innerHTML = "";
 	let taskList = JSON.parse(localStorage.getItem("taskList"));
@@ -50,6 +73,10 @@ function createTask() {
 			let taskItem = document.createElement("div");
 			taskItem.classList.add("task-item");
 			taskItem.classList.add("task-item-row");
+			let delImg = document.createElement("img");
+			delImg.classList.add("del-img")
+			delImg.src = "images/delete.svg";
+			delImg.setAttribute("onclick", "taskColumnDel(" + i + ")")
 			let taskItemHandle = document.createElement("div");
 			taskItemHandle.classList.add("task-item-handle");
 			taskItemHandle.classList.add("d-flex");
@@ -57,18 +84,19 @@ function createTask() {
 			taskItemHandle.classList.add("d-jc-sb");
 			taskItemHandle.setAttribute("onclick", "taskColumnHandle(" + i + ")");
 			let _img = document.createElement("img");
-			_img.src = "images/change_circle.svg";
+			_img.src = "images/jia.png";
 			let _span1 = document.createElement("span");
 			_span1.innerHTML = taskTitle;
 			let _span2 = document.createElement("span");
-			_span2.innerHTML = i + 1;
+			_span2.innerHTML = data.length > 0 ? data.length : 0;
 			taskItemHandle.appendChild(_img);
 			taskItemHandle.appendChild(_span1);
 			taskItemHandle.appendChild(_span2);
+			taskItem.appendChild(delImg);
 			taskItem.appendChild(taskItemHandle);
 			if (data.length > 0) {
 				for (let j = 0; j < data.length; j++) {
-					let { subject, title, description, date, hour, minute } = data[j];
+					let { subject, title, description, date, hour, minute, tagColor } = data[j];
 					let taskItemCard = document.createElement("div");
 					taskItemCard.classList.add("task-item-card");
 					let taskItemCardTitle = document.createElement("div");
@@ -78,9 +106,9 @@ function createTask() {
 					taskItemCardTitle.classList.add("d-jc-sb");
 					let _span3 = document.createElement("span");
 					_span3.innerHTML = subject;
-					_span3.style.backgroundColor = colorRandom();
+					_span3.style.backgroundColor = tagColor;
 					let _imgCard = document.createElement("img");
-					_imgCard.src = "images/change_circle.svg";
+					_imgCard.src = "images/edit.png";
 					_imgCard.setAttribute("onclick", "editColumnHandle(" + i + "," + j + ")")
 					taskItemCardTitle.appendChild(_span3);
 					taskItemCardTitle.appendChild(_imgCard);
@@ -111,15 +139,15 @@ function createTask() {
 			task.appendChild(taskItem);
 		}
 	}
-	createAddColomn();
+	createAddColomn();  //Last side added column
 	setWidth();
 }
 
-// 判断是否是今天
+// Judge whether it is today
 function isToday(val) {
 	return new Date().setHours(0, 0, 0, 0) == new Date(val).setHours(0, 0, 0, 0)
 }
-
+// Create added columns
 function createAddColomn() {
 	let taskItemAdd = document.createElement("div");
 	taskItemAdd.classList.add("task-item");
@@ -180,7 +208,17 @@ function addColumn() {
 		createTask();
 	}
 }
-
+// delete coloum
+function taskColumnDel(i) {
+	let taskList = JSON.parse(localStorage.getItem("taskList"));
+	let pro = confirm("Delete Coloum ?");
+	if (pro) {
+		taskList.splice(i, 1);
+		localStorage.setItem("taskList", JSON.stringify(taskList));
+		createTask();
+	}
+}
+// Window variation sets the width of the column
 function setWidth() {
 	let taskItem = document.querySelectorAll(".task-item");
 	if (window.innerWidth <= 768) {
@@ -190,7 +228,7 @@ function setWidth() {
 	}
 	mainWidth(window.innerWidth <= 768 ? taskItem[0].style : 386)
 }
-
+// sets the width of the column
 function mainWidth(wid) {
 	let task = document.getElementById("task"),
 		taskItem = document.querySelectorAll(".task-item");
@@ -207,7 +245,7 @@ function colorRandom() {
 }
 
 let coloumIndex, coloumItemIndex, editAdd;
-
+// task edit modal
 function editColumnHandle(i, j) {
 	coloumIndex = i;
 	coloumItemIndex = j;
@@ -234,7 +272,7 @@ function editColumnHandle(i, j) {
 		});
 	}
 }
-
+// task add modal
 function taskColumnHandle(i) {
 	coloumIndex = i;
 	editAdd = "add";
@@ -245,7 +283,7 @@ function taskColumnHandle(i) {
 	cancel.style.display = "block";
 	modal.style.display = "block";
 }
-
+// get status 
 function statusVal() {
 	let taskList = JSON.parse(localStorage.getItem("taskList"));
 	statusDom.innerHTML = "";
@@ -260,7 +298,7 @@ function statusVal() {
 	});
 
 }
-
+// reset form
 function resetForm() {
 	subjectDom.value = "";
 	titleDom.value = "";
@@ -270,12 +308,12 @@ function resetForm() {
 	minuteDom.value = "";
 	priorityPatingDom.forEach(v => v.classList.remove('active'));
 }
-
+// modal cancel 
 cancel.addEventListener("click", () => {
 	modal.style.display = "none";
 	coloumIndex = null, coloumItemIndex = null;
 })
-
+// modal delete 
 del.addEventListener("click", () => {
 	let taskList = JSON.parse(localStorage.getItem("taskList"))
 	taskList[coloumIndex].data.splice(coloumItemIndex, 1);
@@ -285,7 +323,7 @@ del.addEventListener("click", () => {
 	coloumIndex = null, coloumItemIndex = null;
 	createTask();
 })
-
+// modal save  / edit
 save.addEventListener("click", () => {
 	let taskList = JSON.parse(localStorage.getItem("taskList"))
 	let subjectVal = subjectDom.value,
@@ -326,8 +364,6 @@ save.addEventListener("click", () => {
 		alert("Priority Pating muse be choose");
 		return;
 	}
-
-
 	let obj = {
 		"subject": subjectVal,
 		"title": titleVal,
@@ -336,10 +372,12 @@ save.addEventListener("click", () => {
 		"date": dateVal,
 		"hour": hourVal,
 		"minute": minuteVal,
-		"priorityPating": priorityPatingVal
+		"priorityPating": priorityPatingVal,
+		"tagColor": colorRandom()
 	}
-
-	taskList[coloumIndex].data.splice(coloumItemIndex, 1);
+	if (coloumItemIndex !== undefined) {
+		taskList[coloumIndex].data.splice(coloumItemIndex, 1);
+	}
 	let index = taskList.findIndex(v => v.taskTitle == statusDom.value);
 	taskList[index].data.push(obj);
 	localStorage.removeItem("taskList");

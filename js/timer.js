@@ -1,4 +1,4 @@
-// Timer
+// get page dom
 let timer = document.querySelector(".timer"),
     modalTimer = document.querySelector(".modal-timer"),
     timerClose = document.querySelector(".timer-close"),
@@ -20,7 +20,7 @@ let wholeTime;
 let progressBar = document.querySelector('.e-c-progress');
 let indicator = document.getElementById('e-indicator');
 let pointer = document.getElementById('e-pointer');
-let length = Math.PI * 2 * 100;
+let length = -Math.PI * 2 * 100;
 progressBar.style.strokeDasharray = length;
 let intervalTimer;
 let timeLeft;
@@ -30,6 +30,7 @@ let displayOutput = document.querySelector('.display-remain-time');
 let displayRemainPercentage = document.querySelector('.display-remain-percentage');
 let displayRemainBreak = document.querySelector(".display-remain-break");
 
+// StopWatch and Pomodoro change
 changeCircle.addEventListener("click", () => {
     if (isStarted) {
         let val = confirm("There are tasks in progress. Do you want to cancel");
@@ -39,22 +40,25 @@ changeCircle.addEventListener("click", () => {
     } else {
         statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
     }
-    if (changeTitle.classList == "change-title") {
-        changeTitle.classList.add("active");
-        changeTitle.innerHTML = "POMODORO";
-        stopwatch.style.display = "none";
-        pomodoro.style.display = "block";
-        statusTimer = "";
-    } else {
-        changeTitle.classList.remove("active");
-        changeTitle.innerHTML = "STOPWATCH";
-        stopwatch.style.display = "block";
-        pomodoro.style.display = "none";
-        statusTimer = "stopwatch";
+    if (!isStarted) {
+        if (changeTitle.classList == "change-title") {
+            changeTitle.classList.add("active");
+            changeTitle.innerHTML = "POMODORO";
+            stopwatch.style.display = "none";
+            pomodoro.style.display = "block";
+            statusTimer = "";
+        } else {
+            changeTitle.classList.remove("active");
+            changeTitle.innerHTML = "STOPWATCH";
+            stopwatch.style.display = "block";
+            pomodoro.style.display = "none";
+            statusTimer = "stopwatch";
+        }
     }
     progress.style.display = "none";
 })
 
+// Set default initialization presentation
 timer.addEventListener("click", () => {
     modalTimer.style.display = "block";
     if (statusTimer == "stopwatch") {
@@ -65,6 +69,7 @@ timer.addEventListener("click", () => {
         pomodoro.style.display = "block";
     }
 })
+// Determine whether to set the click event when task page is selected
 if (window.location.pathname == "/task.html") {
     document.getElementById("alarmClock").addEventListener("click", () => {
         modalTimer.style.display = "block";
@@ -77,11 +82,12 @@ if (window.location.pathname == "/task.html") {
         }
     })
 }
-
+// timer hide handle
 timerHide.addEventListener("click", () => {
     modalTimer.style.display = "none";
 })
 
+// StopWatch start
 start.addEventListener("click", () => {
     let timerHVal = timerH.value,
         timerMVal = timerM.value;
@@ -93,59 +99,53 @@ start.addEventListener("click", () => {
         alert("Minutes can only be an integer and less than or equal to 60");
         return;
     }
-    wholeTime = Number(timerHVal) * 60 + timerMVal;
-    if (wholeTime > 0) {
-        progress.style.display = "block";
-        stopwatch.style.display = "none";
-        pomodoro.style.display = "none";
-        displayRemainBreak.style.display = "none";
-        update(wholeTime, wholeTime)
-        pauseTimer();
-    } else {
-        alert("Please set the time before countdown");
-        return;
-    }
-})
-
-finish.addEventListener("click", () => {
-    if (isStarted) {
-        let val = confirm("There are tasks in progress. Do you want to cancel");
-        if (val) {
-            statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
+    intervalTimer = setInterval(() => {
+        timerMVal--;
+        console.log(timerHVal, timerMVal)
+        if ((timerHVal == 0 || timerHVal == "") && (timerMVal == 0 || timerMVal == "")) {
+            timerH.disabled = false;
+            timerM.disabled = false;
+            start.disabled = false;
+            timerH.value = "";
+            timerM.value = "";
+            isStarted = false;
+            clearInterval(intervalTimer);
+            return false;
         }
-    } else {
-        statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
-    }
-})
-
-timerClose.addEventListener("click", () => {
-    if (isStarted) {
-        let val = confirm("There are tasks in progress. Do you want to cancel");
-        if (val) {
-            statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
+        if (timerMVal < 0) {
+            timerHVal--;
+            timerMVal = 59;
         }
-    } else {
-        statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
-    }
-    modalTimer.style.display = "none";
+        isStarted = true;
+        timerH.disabled = true;
+        timerM.disabled = true;
+        start.disabled = true;
+        timerH.value = timerHVal < 10 ? timerHVal == "" ? "00" : `0${timerHVal}` : timerHVal;
+        timerM.value = timerMVal < 10 ? timerMVal == "" ? "00" : `0${timerMVal}` : timerMVal;
+    }, 1000);
 })
-
-function finishStopWatch() {
+// StopWatch reset 
+reset.addEventListener("click", () => {
     isStarted = false;
-    isPaused = false;
-    clearInterval(intervalTimer);
-    if (statusTimer == "stopwatch") {
-        stopwatch.style.display = "block";
-        pomodoro.style.display = "none";
-    } else {
-        stopwatch.style.display = "none";
-        pomodoro.style.display = "block";
-    }
-    progress.style.display = "none";
     timerH.value = "";
     timerM.value = "";
+    timerH.disabled = false;  //set timer input disabled false
+    timerM.disabled = false;
+    start.disabled = false; //set timer button disabled false
+    clearInterval(intervalTimer);  //Clear timer
+})
+// StopWatch finish handle
+function finishStopWatch() {
+    if (statusTimer == "stopwatch") {
+        stopwatch.style.display = "none";
+        pomodoro.style.display = "block";
+    } else {
+        stopwatch.style.display = "block";
+        pomodoro.style.display = "none";
+    }
+    progress.style.display = "none";
 }
-
+// Pomodoro finish handle
 function finishPomodoro() {
     if (statusTimer == "stopwatch") {
         stopwatch.style.display = "block";
@@ -160,60 +160,38 @@ function finishPomodoro() {
     pomodoroFocus.value = "";
     pomodoroBreak.value = "";
 }
-
-reset.addEventListener("click", () => {
-    timerH.value = "";
-    timerM.value = "";
+// Pomodoro finish show
+finish.addEventListener("click", () => {
+    if (isStarted) {
+        let val = confirm("There are tasks in progress. Do you want to cancel");
+        if (val) {
+            statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
+        }
+    } else {
+        statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
+    }
+})
+// StopWatch close
+timerClose.addEventListener("click", () => {
+    if (isStarted) {
+        let val = confirm("There are tasks in progress. Do you want to cancel");
+        if (val) {
+            statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
+        }
+    } else {
+        statusTimer == "stopwatch" ? finishStopWatch() : finishPomodoro();
+    }
+    modalTimer.style.display = "none";
 })
 
+// progess update function
 function update(value, timePercent) {
     var offset = -length - length * value / (timePercent);
     progressBar.style.strokeDashoffset = offset;
-    pointer.style.transform = `rotate(${360 * value / (timePercent)}deg)`;
+    pointer.style.transform = `rotate(${-360 * value / (timePercent)}deg)`;
 };
 
-function pauseTimer() {
-    if (isStarted === false) {
-        timers(wholeTime);
-        isStarted = true;
-
-    } else if (isPaused) {
-        timer(timeLeft);
-        isPaused = isPaused ? false : true
-    } else {
-        clearInterval(intervalTimer);
-        isPaused = isPaused ? false : true;
-    }
-}
-function timers(seconds) { //counts time, takes seconds
-    let remainTime = Date.now() + (seconds * 1000);
-    displayTimeLeft(seconds);
-
-    intervalTimer = setInterval(function () {
-        timeLeft = Math.round((remainTime - Date.now()) / 1000);
-        if (timeLeft < 0) {
-            clearInterval(intervalTimer);
-            isStarted = false;
-            timerH.disabled = false;
-            timerH.style.opacity = 1;
-            timerM.disabled = false;
-            timerM.style.opacity = 1;
-            return;
-        }
-        displayTimeLeft(timeLeft);
-    }, 1000);
-}
-
-function displayTimeLeft(timeLeft) {
-    let minutes = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
-    let displayString = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    displayOutput.textContent = displayString;
-    displayRemainPercentage.textContent = `${parseFloat(360 / 3.6 * timeLeft / wholeTime).toFixed(2)} %`;
-    update(timeLeft, wholeTime);
-}
-
-
+// Pomodoro dom
 let session1 = document.querySelector(".session1"),
     session2 = document.querySelector(".session2"),
     num = document.querySelector(".num"),
@@ -222,25 +200,24 @@ let session1 = document.querySelector(".session1"),
     pomodoroFocus = document.querySelector(".pomodoro-focus"),
     pomodoroBreak = document.querySelector(".pomodoro-break"),
     pomTimeReg = /^(([0-2][0-3])|([0-1][0-9])):[0-5][0-9]$/;
-
-
 let pomodoroStartValue, pomodoroBreakValue;
 
 
-let session;       //这个是默认工作时间，用在设置那儿显示的，这里以分钟为单位，且超过60也是分钟
-let breaklength;            //设置break时长——休息时长,细节同session
-let flagTImer = 1;           //设置工作状态，1是工作的暂停，3是在工作中，4是休息中
-let sec;   //用来记录变化中的时间，单位为秒
-let countInit = 2;  //次数
+let session; //This is the default working time, which is displayed in the setting. Here, it is in minutes, and more than 60 minutes are also minutes
+let breaklength; //Set break duration - break duration. The details are the same as session
+let flagTImer = 1; //Set the working status. 1 refers to the suspension of work, 3 refers to the work in progress, and 4 refers to the rest
+let sec; //It is used to record the changing time in seconds
+let countInit = 2;  //frequency
 
+// set pomodoro focus time
 pomodoroFocus.addEventListener("input", (e) => {
     pomodoroStartValue = e.target.value;
 })
-
+// set pomodoro break time
 pomodoroBreak.addEventListener("input", (e) => {
     pomodoroBreakValue = e.target.value;
 })
-
+// add SESSION
 session1.addEventListener("click", () => {
     sessionNum++;
     if (sessionNum == 0) {
@@ -251,6 +228,7 @@ session1.addEventListener("click", () => {
     num.innerHTML = sessionNum;
     countInit = sessionNum;
 })
+// reduce SESSION
 session2.addEventListener("click", () => {
     sessionNum--;
     if (sessionNum == 0) {
@@ -261,13 +239,13 @@ session2.addEventListener("click", () => {
     num.innerHTML = sessionNum;
     countInit = sessionNum;
 })
-
+// pomodoro start
 pomodoroStart.addEventListener("click", () => {
-    if (!pomTimeReg.test(pomodoroStartValue)) {
+    if (!pomTimeReg.test(pomodoroStartValue)) {  //rule focus time
         alert("Please enter the correct start time");
         return;
     }
-    if (pomodoroBreakValue && !pomTimeReg.test(pomodoroBreakValue)) {
+    if (pomodoroBreakValue && !pomTimeReg.test(pomodoroBreakValue)) {  //rule break time
         alert("Please enter the correct break time");
         return;
     }
@@ -289,7 +267,7 @@ pomodoroStart.addEventListener("click", () => {
         return;
     }
 })
-
+// time change
 function timeChange() {
     var temp = sec;
     wholeTime = session;
@@ -326,13 +304,13 @@ function timeChange() {
     displayTimeLeft2(sec);
     setTimeout(timeChange, 1000);
 };
-
+// progess show 
 function displayTimeLeft2(timeLeft) {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     let displayString = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     displayOutput.innerHTML = displayString;
     displayRemainBreak.innerHTML = countInit - sessionNum + "/" + countInit;
-    displayRemainPercentage.innerHTML = `${parseFloat(360 / 3.6 * timeLeft / wholeTime).toFixed(2)} %`;
+    displayRemainPercentage.innerHTML = `${(100 - parseFloat(360 / 3.6 * timeLeft / wholeTime)).toFixed(2)} %`;
     update(timeLeft, wholeTime);
 }
