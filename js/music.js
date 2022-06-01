@@ -2,24 +2,24 @@ let n = 0;  //default first song
 let playerMusic = [  // set song Array
     {
         id: 0,
-        imgs: "images/alarm.svg",
-        title: "test1",
-        singer: "singer1",
-        src: "music/1.mp3"
+        imgs: "images/summer-rain.png",
+        title: "Summer Rain",
+        singer: "",
+        src: "music/summer-rain.mp3"
     },
     {
         id: 1,
-        imgs: "images/change_circle.svg",
-        title: "test2",
-        singer: "singer2",
-        src: "music/2.mp3"
+        imgs: "images/bright-ideas.png",
+        title: "Bright Ideas",
+        singer: "",
+        src: "music/bright-ideas.mp3"
     },
     {
         id: 2,
-        imgs: "images/delete.svg",
-        title: "test3",
-        singer: "singer3",
-        src: "music/3.mp3"
+        imgs: "images/moments.png",
+        title: "Moments",
+        singer: "",
+        src: "music/moments.mp3"
     }
 ]
 
